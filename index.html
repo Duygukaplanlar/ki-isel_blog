@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duygu Kaplanlar | Backend Developer & Öğrenci</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            plum: '#7B61FF',
+                            plumLight: '#E2D9F3',
+                            mint: '#E8F5E9',
+                            mintDark: '#2E7D32',
+                            peach: '#FFE0B2',
+                            peachDark: '#E65100',
+                            slateBg: '#0F111A',
+                            slateCard: '#181A26',
+                            cream: '#FAF8F5'
+                        }
+                    },
+                    boxShadow: {
+                        'neu-light': '8px 8px 16px #e3e0db, -8px -8px 16px #ffffff',
+                        'neu-dark': '6px 6px 14px #0a0b11, -6px -6px 14px #141723',
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(24, 26, 38, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .bg-mesh {
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(123, 97, 255, 0.12) 0px, transparent 50%),
+                radial-gradient(at 90% 20%, rgba(255, 224, 178, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 80%, rgba(232, 245, 233, 0.25) 0px, transparent 50%);
+        }
+        .dark .bg-mesh {
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(123, 97, 255, 0.18) 0px, transparent 50%),
+                radial-gradient(at 90% 20%, rgba(230, 81, 0, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 80%, rgba(46, 125, 50, 0.12) 0px, transparent 50%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #7B61FF; border-radius: 99px; }
+    </style>
+</head>
+<body class="bg-brand-cream dark:bg-brand-slateBg text-gray-800 dark:text-gray-100 font-sans transition-colors duration-300 min-h-screen bg-mesh relative overflow-x-hidden">
+
+    <!-- Ambient Floating Orbs -->
+    <div class="fixed top-12 left-10 w-72 h-72 rounded-full bg-brand-plum/20 blur-3xl pointer-events-none -z-10 animate-pulse"></div>
+    <div class="fixed bottom-20 right-10 w-80 h-80 rounded-full bg-brand-peach/30 dark:bg-brand-peachDark/10 blur-3xl pointer-events-none -z-10"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-white/70 dark:bg-brand-slateBg/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-plum via-purple-400 to-pink-300 flex items-center justify-center text-white font-display font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
+                        DK
+                    </div>
+                    <span class="font-display font-bold text-lg tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                        Duygu Kaplanlar
+                    </span>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#about" class="px-3 py-2 rounded-xl text-xs font-semibold hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-colors">Hakkımda</a>
+                    <a href="#experience" class="px-3 py-2 rounded-xl text-xs font-semibold hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-colors">Deneyim & Eğitim</a>
+                    <a href="#skills" class="px-3 py-2 rounded-xl text-xs font-semibold hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-colors">Yetenekler</a>
+                    <a href="#projects" class="px-3 py-2 rounded-xl text-xs font-semibold hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-colors">Projeler</a>
+                    <a href="#blog" class="px-3 py-2 rounded-xl text-xs font-semibold hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-colors">Blog</a>
+                    <a href="#contact" class="px-3 py-2 rounded-xl text-xs font-semibold hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-colors">İletişim</a>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center space-x-3">
+                    <!-- Theme Switcher -->
+                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm text-gray-600 dark:text-gray-300 hover:scale-105 active:scale-95 transition-all">
+                        <i id="themeIcon" class="fas fa-moon"></i>
+                    </button>
+
+                    <!-- Admin Trigger Button -->
+                    <button onclick="openAdminAuth()" class="p-2.5 rounded-2xl bg-brand-plumLight dark:bg-brand-plum/20 text-brand-plum border border-brand-plum/30 hover:scale-105 transition-all relative" title="Mesaj Yönetim Paneli (Admin)">
+                        <i class="fas fa-user-shield"></i>
+                        <span id="unreadBadge" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-[9px] font-bold flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- CV Button -->
+                    <button onclick="downloadCV()" class="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-2xl bg-brand-plum text-white font-semibold text-xs hover:bg-purple-700 transition-all shadow-md active:scale-95">
+                        <i class="fas fa-arrow-down-long"></i>
+                        <span>CV İndir</span>
+                    </button>
+
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl bg-gray-100 dark:bg-gray-800">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-brand-slateBg/95 px-4 pt-2 pb-6 space-y-2 border-b border-gray-200 dark:border-gray-800">
+            <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium">Hakkımda</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium">Deneyim & Eğitim</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium">Yetenekler</a>
+            <a href="#projects" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium">Projeler</a>
+            <a href="#blog" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium">Blog</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-sm font-medium">İletişim</a>
+            <button onclick="downloadCV()" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-brand-plum">CV İndir</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 space-y-28">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="pt-6 flex flex-col items-center text-center relative">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white dark:bg-gray-800/80 border border-brand-plum/30 shadow-sm mb-6">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-xs font-bold tracking-wider uppercase text-brand-plum dark:text-brand-plumLight">Aktif Öğrenci & Backend Tutkunu</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight mb-6">
+                Kodlar, Mantık ve <br />
+                <span class="bg-gradient-to-r from-brand-plum via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    Sürdürülebilir Mimari.
+                </span>
+            </h1>
+
+            <p class="max-w-2xl text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+                Ben <strong class="text-gray-900 dark:text-white">Duygu Kaplanlar</strong>. Anadolu Üniversitesi'nde Arka Yüz Yazılım Geliştirme okuyorum. C#, ASP.NET Core, Docker ve veritabanı sistemleri üzerinde tutkuyla çalışıyorum.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-14">
+                <a href="#projects" class="px-7 py-3.5 rounded-2xl bg-brand-plum text-white font-bold text-sm shadow-lg shadow-brand-plum/25 hover:bg-purple-700 hover:scale-105 active:scale-95 transition-all">
+                    <i class="fas fa-layer-group mr-2"></i> Projelerime Göz At
+                </a>
+                <a href="#contact" class="px-7 py-3.5 rounded-2xl glass-card text-gray-800 dark:text-white font-bold text-sm hover:bg-white dark:hover:bg-gray-800 transition-all">
+                    <i class="far fa-paper-plane mr-2"></i> Bana Ulaş
+                </a>
+            </div>
+
+            <!-- Dynamic Learning Note / Quote Pill -->
+            <div class="w-full max-w-xl glass-card p-4 rounded-3xl flex items-center justify-between border-l-4 border-l-brand-plum shadow-neu-light dark:shadow-neu-dark text-left">
+                <div class="flex items-center space-x-3 pr-2">
+                    <div class="w-10 h-10 rounded-2xl bg-brand-plumLight dark:bg-purple-900/40 text-brand-plum flex items-center justify-center text-lg shrink-0">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Günün Öğrenim Notu</div>
+                        <div id="dynamicQuote" class="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-200">"Temiz kod yazmak zaman alır, ama gelecekte kat kat zaman kazandırır."</div>
+                    </div>
+                </div>
+                <button onclick="changeQuote()" class="p-2 text-gray-400 hover:text-brand-plum transition-colors" title="Değiştir">
+                    <i class="fas fa-sync-alt text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Live Stats Bar -->
+            <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-4xl">
+                <div class="glass-card p-5 rounded-3xl text-center">
+                    <div class="text-3xl font-display font-bold text-brand-plum">15+</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Tamamlanan Proje</div>
+                </div>
+                <div class="glass-card p-5 rounded-3xl text-center">
+                    <div class="text-3xl font-display font-bold text-emerald-600 dark:text-emerald-400">25K+</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Yazılan Kod Satırı</div>
+                </div>
+                <div class="glass-card p-5 rounded-3xl text-center">
+                    <div class="text-3xl font-display font-bold text-amber-500">2. Sınıf</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Anadolu Üniv.</div>
+                </div>
+                <div class="glass-card p-5 rounded-3xl text-center">
+                    <div class="text-3xl font-display font-bold text-pink-500">100%</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Öğrenme Motivasyonu</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HAKKIMDA (ABOUT) SECTION -->
+        <section id="about" class="scroll-mt-24">
+            <div class="flex flex-col items-center mb-10">
+                <span class="text-xs font-bold text-brand-plum uppercase tracking-widest">Hakkımda</span>
+                <h2 class="text-3xl font-display font-bold">Kimim, Ne Yapıyorum?</h2>
+                <div class="w-12 h-1 bg-brand-plum rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Personal Story Card -->
+                <div class="lg:col-span-2 glass-card p-8 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-plum to-pink-400 p-1 shadow-md">
+                                <div class="w-full h-full rounded-xl bg-white dark:bg-brand-slateCard flex items-center justify-center font-display font-extrabold text-2xl text-brand-plum">
+                                    DK
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Duygu Kaplanlar</h3>
+                                <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">Arka Yüz (Backend) Yazılım Geliştiricisi Adayı</p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                            Anadolu Üniversitesi Arka Yüz Yazılım Geliştirme bölümü öğrencisiyim. Yazılım dünyasında en çok ilgimi çeken kısım iş mantığının kurgulandığı, veri akışının güvenli ve hızlı şekilde sağlandığı backend tarafıdır.
+                            <br/><br/>
+                            Kod yazarken temiz mimari (Clean Architecture), bağımlılıkların yönetimi (Dependency Injection) ve veritabanı optimizasyonları üzerine odaklanıyorum. Sürekli yeni teknolojiler araştırıyor ve küçük ölçekli projelerle pratik yapıyorum.
+                        </p>
+
+                        <!-- Highlights Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-400 mb-1"><i class="fas fa-location-dot text-brand-plum mr-1"></i> Konum & Yaşam</div>
+                                <div class="text-sm font-bold">Eskişehir, Türkiye</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-400 mb-1"><i class="fas fa-graduation-cap text-emerald-500 mr-1"></i> Eğitim Durumu</div>
+                                <div class="text-sm font-bold">Anadolu Üniversitesi</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack Badges -->
+                    <div class="mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
+                        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Sevdiğim Teknoloji Yığını</div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs font-semibold">C# / .NET 8</span>
+                            <span class="px-3 py-1 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold">ASP.NET Web API</span>
+                            <span class="px-3 py-1 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">MSSQL & PostgreSQL</span>
+                            <span class="px-3 py-1 rounded-xl bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300 text-xs font-semibold">Docker</span>
+                            <span class="px-3 py-1 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hobbies & Personal Hobbies -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 flex items-center">
+                            <i class="fas fa-heart text-pink-500 mr-2"></i> İlgi Alanları & Hobiler
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 rounded-2xl bg-white/60 dark:bg-gray-800/60 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 flex items-center justify-center text-lg mr-3">
+                                    <i class="fas fa-bicycle"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold">Bisiklet Sürmek</div>
+                                    <div class="text-xs text-gray-500">Eskişehir parkurları & turlar</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center p-3 rounded-2xl bg-white/60 dark:bg-gray-800/60 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 flex items-center justify-center text-lg mr-3">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold">Yapboz (Puzzle)</div>
+                                    <div class="text-xs text-gray-500">Sabır ve odaklanma egzersizi</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center p-3 rounded-2xl bg-white/60 dark:bg-gray-800/60 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 flex items-center justify-center text-lg mr-3">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold">Çizim & Karalama</div>
+                                    <div class="text-xs text-gray-500">Yaratıcı illüstrasyonlar</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center p-3 rounded-2xl bg-white/60 dark:bg-gray-800/60 shadow-sm">
+                                <div class="w-10 h-10 rounded-xl bg-pink-100 dark:bg-pink-900/40 text-pink-600 flex items-center justify-center text-lg mr-3">
+                                    <i class="fas fa-compass"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold">Seyahat & Keşif</div>
+                                    <div class="text-xs text-gray-500">Yeni mekanlar ve rotalar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 rounded-2xl bg-brand-plumLight/40 dark:bg-gray-800/40 text-center">
+                        <span class="text-xs italic text-gray-600 dark:text-gray-300">"Sistem tasarımı da puzzle yapmak gibidir; doğru parçaları doğru sırayla birleştirmelisiniz."</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EĞİTİM & ZAMAN ÇİZELGESİ (TIMELINE) SECTION -->
+        <section id="experience" class="scroll-mt-24">
+            <div class="flex flex-col items-center mb-12">
+                <span class="text-xs font-bold text-brand-plum uppercase tracking-widest">Yolculuk</span>
+                <h2 class="text-3xl font-display font-bold">Eğitim & Deneyim Zaman Çizelgesi</h2>
+                <div class="w-12 h-1 bg-brand-plum rounded-full mt-2"></div>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-8 relative before:absolute before:inset-0 before:left-4 sm:before:left-1/2 before:-ml-0.5 before:w-0.5 before:bg-brand-plum/30">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-9 h-9 rounded-full bg-brand-plum text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                        <i class="fas fa-graduation-cap text-xs"></i>
+                    </div>
+                    <div class="w-[calc(100%-2.5rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-3xl shadow-sm cursor-pointer hover:border-brand-plum transition-all" onclick="openTimelineModal('Anadolu Üniversitesi', 'Arka Yüz Yazılım Geliştirme Önlisans Programı', '2023 - Halen Devam Ediyor', 'Bu eğitim kapsamında Nesne Yönelimli Programlama (OOP), Veritabanı Yönetim Sistemleri (SQL), Veri Yapıları ve Algoritmalar ile ASP.NET Core derslerini aktif olarak alıyorum.')">
+                        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-brand-plumLight text-brand-plum dark:bg-purple-900/50 dark:text-purple-300">2023 - Halen</span>
+                        <h3 class="text-lg font-bold mt-2">Anadolu Üniversitesi</h3>
+                        <p class="text-xs font-semibold text-gray-500">Arka Yüz Yazılım Geliştirme</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">C#, Veritabanı Sistemleri, Web API mimarileri üzerine yoğunlaşan akademik eğitim.</p>
+                        <span class="inline-block mt-3 text-xs font-bold text-brand-plum">Detayları Gör <i class="fas fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-9 h-9 rounded-full bg-emerald-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                        <i class="fas fa-laptop-code text-xs"></i>
+                    </div>
+                    <div class="w-[calc(100%-2.5rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-3xl shadow-sm cursor-pointer hover:border-emerald-500 transition-all" onclick="openTimelineModal('Kişisel Gelişim & Proje Dönemi', 'Bağımsız Backend Projeleri & Katkılar', '2023 - 2026', 'RESTful API tasarımları, Docker konteynerleştirme pratikleri, Entity Framework Core ORM ve PostgreSQL/MSSQL veritabanı entegrasyonlu mimariler üzerinde projeler ürettim.')">
+                        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">2023 - 2026</span>
+                        <h3 class="text-lg font-bold mt-2">Bireysel Proje Çalışmaları</h3>
+                        <p class="text-xs font-semibold text-gray-500">Backend & API Odaklı Pratikler</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">GitHub üzerinde açık kaynak projeler inceleme, Clean Architecture pratikleri.</p>
+                        <span class="inline-block mt-3 text-xs font-bold text-emerald-600">Detayları Gör <i class="fas fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- YETENEKLER (SKILLS) SECTION -->
+        <section id="skills" class="scroll-mt-24">
+            <div class="flex flex-col items-center mb-12">
+                <span class="text-xs font-bold text-brand-plum uppercase tracking-widest">Yetenek Havuzu</span>
+                <h2 class="text-3xl font-display font-bold">Teknik Yetkinlikler</h2>
+                <div class="w-12 h-1 bg-brand-plum rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-6 rounded-3xl hover:-translate-y-1 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-3">Backend & Diller</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>C# / .NET 8</span><span class="text-purple-600">85%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-purple-600 h-1.5 rounded-full" style="width:85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>ASP.NET Web API</span><span class="text-purple-600">80%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-purple-500 h-1.5 rounded-full" style="width:80%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>Python</span><span class="text-purple-600">70%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-purple-400 h-1.5 rounded-full" style="width:70%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-6 rounded-3xl hover:-translate-y-1 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/40 text-pink-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-3">Veritabanı</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>MSSQL Server</span><span class="text-pink-600">80%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-pink-600 h-1.5 rounded-full" style="width:80%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>Entity Framework</span><span class="text-pink-600">85%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-pink-500 h-1.5 rounded-full" style="width:85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>PostgreSQL</span><span class="text-pink-600">65%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-pink-400 h-1.5 rounded-full" style="width:65%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-6 rounded-3xl hover:-translate-y-1 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/40 text-teal-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-3">DevOps & Araçlar</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>Docker</span><span class="text-teal-600">75%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-teal-600 h-1.5 rounded-full" style="width:75%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>Git & GitHub</span><span class="text-teal-600">85%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-teal-500 h-1.5 rounded-full" style="width:85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>Postman</span><span class="text-teal-600">90%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-teal-400 h-1.5 rounded-full" style="width:90%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-6 rounded-3xl hover:-translate-y-1 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="font-bold text-base mb-3">Frontend Temelleri</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>HTML5 / CSS3</span><span class="text-amber-600">80%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-amber-600 h-1.5 rounded-full" style="width:80%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>Tailwind CSS</span><span class="text-amber-600">75%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-amber-500 h-1.5 rounded-full" style="width:75%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-bold mb-1"><span>JavaScript</span><span class="text-amber-600">65%</span></div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full"><div class="bg-amber-400 h-1.5 rounded-full" style="width:65%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJELER (PROJECTS) SECTION -->
+        <section id="projects" class="scroll-mt-24">
+            <div class="flex flex-col items-center mb-8">
+                <span class="text-xs font-bold text-brand-plum uppercase tracking-widest">Çalışmalar</span>
+                <h2 class="text-3xl font-display font-bold">Öne Çıkan Projeler</h2>
+                <div class="w-12 h-1 bg-brand-plum rounded-full mt-2"></div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button onclick="filterProjects('all', this)" class="proj-filter-btn px-4 py-2 rounded-2xl text-xs font-bold bg-brand-plum text-white shadow-sm transition-all">Tümü</button>
+                <button onclick="filterProjects('backend', this)" class="proj-filter-btn px-4 py-2 rounded-2xl text-xs font-bold glass-card hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-all">Backend / API</button>
+                <button onclick="filterProjects('docker', this)" class="proj-filter-btn px-4 py-2 rounded-2xl text-xs font-bold glass-card hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-all">Docker & DevOps</button>
+                <button onclick="filterProjects('fullstack', this)" class="proj-filter-btn px-4 py-2 rounded-2xl text-xs font-bold glass-card hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-all">Web Apps</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Project 1 -->
+                <div class="proj-card backend glass-card p-6 rounded-3xl flex flex-col justify-between hover:shadow-xl transition-all group">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300">ASP.NET Core REST API</span>
+                            <span class="text-xs text-amber-500 font-bold"><i class="fas fa-star mr-1"></i>4.9</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-plum transition-colors">EventFlow.API - Etkinlik Yönetim Sistemi</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            CQRS pattern, MediatR, FluentValidation ve JWT kimlik doğrulama kullanılarak geliştirilmiş yüksek performanslı etkinlik yönetim backend mimarisi.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">C#</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">.NET 8</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">MSSQL</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">JWT</span>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+                        <button onclick="openProjectDetails(0)" class="text-xs font-bold text-brand-plum hover:underline">
+                            Detaylı İncele <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                        <a href="https://github.com" target="_blank" class="p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-800"><i class="fab fa-github text-base"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="proj-card docker backend glass-card p-6 rounded-3xl flex flex-col justify-between hover:shadow-xl transition-all group">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-teal-100 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300">Docker & Microservices</span>
+                            <span class="text-xs text-amber-500 font-bold"><i class="fas fa-star mr-1"></i>4.8</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-teal-600 transition-colors">MicroShop Dockerized Backend</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            Redis Cache, PostgreSQL ve .NET Web API servislerinin Docker Compose orkestrasyonu ile izole konteyner ortamında ayağa kaldırılması projesi.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">Docker</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">Redis</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-gray-100 dark:bg-gray-800">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+                        <button onclick="openProjectDetails(1)" class="text-xs font-bold text-teal-600 hover:underline">
+                            Detaylı İncele <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                        <a href="https://github.com" target="_blank" class="p-2 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-800"><i class="fab fa-github text-base"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOG SECTION -->
+        <section id="blog" class="scroll-mt-24">
+            <div class="flex flex-col items-center mb-12">
+                <span class="text-xs font-bold text-brand-plum uppercase tracking-widest">Notlar & Yazılar</span>
+                <h2 class="text-3xl font-display font-bold">Teknik Blog & Öğrenim Günlüğü</h2>
+                <div class="w-12 h-1 bg-brand-plum rounded-full mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Blog 1 -->
+                <article class="glass-card p-6 rounded-3xl flex flex-col justify-between hover:-translate-y-1 transition-all cursor-pointer" onclick="openBlogDetails(0)">
+                    <div>
+                        <div class="flex items-center justify-between text-[11px] text-gray-400 mb-3">
+                            <span><i class="far fa-calendar mr-1"></i> 14 Ekim 2026</span>
+                            <span>4 dk okuma</span>
+                        </div>
+                        <h3 class="font-bold text-base mb-2 hover:text-brand-plum transition-colors">Clean Architecture: Katmanların Ayrımı ve Bağımlılık Yönetimi</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
+                            Backend projelerinde domain bağımsızlığı sağlamak ve test edilebilirliği artırmak için Clean Architecture kuralları...
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">Yazılım Mimarisi</span>
+                        <span class="text-xs font-bold text-brand-plum">Oku <i class="fas fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </article>
+
+                <!-- Blog 2 -->
+                <article class="glass-card p-6 rounded-3xl flex flex-col justify-between hover:-translate-y-1 transition-all cursor-pointer" onclick="openBlogDetails(1)">
+                    <div>
+                        <div class="flex items-center justify-between text-[11px] text-gray-400 mb-3">
+                            <span><i class="far fa-calendar mr-1"></i> 28 Eylül 2026</span>
+                            <span>3 dk okuma</span>
+                        </div>
+                        <h3 class="font-bold text-base mb-2 hover:text-teal-600 transition-colors">Neden Docker Konteyner Yapısını Tercih Etmeliyiz?</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
+                            "Benim bilgisayarımda çalışıyordu" sorununu tarihe gömen Dockerfile ve Compose yapılandırma pratikleri...
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300">DevOps & Docker</span>
+                        <span class="text-xs font-bold text-teal-600">Oku <i class="fas fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </article>
+
+                <!-- Blog 3 -->
+                <article class="glass-card p-6 rounded-3xl flex flex-col justify-between hover:-translate-y-1 transition-all cursor-pointer" onclick="openBlogDetails(2)">
+                    <div>
+                        <div class="flex items-center justify-between text-[11px] text-gray-400 mb-3">
+                            <span><i class="far fa-calendar mr-1"></i> 05 Eylül 2026</span>
+                            <span>5 dk okuma</span>
+                        </div>
+                        <h3 class="font-bold text-base mb-2 hover:text-pink-600 transition-colors">Eskişehir Rotaları ve Bir Yazılımcının Bisiklet Günlüğü</h3>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
+                            Kod yazarken zihni dinlendirmenin en güzel yolu: Pedallamak ve doğanın tadını çıkarmak...
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300">Bisiklet & Yaşam</span>
+                        <span class="text-xs font-bold text-pink-600">Oku <i class="fas fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- İLETİŞİM (CONTACT) SECTION -->
+        <section id="contact" class="scroll-mt-24">
+            <div class="glass-card p-8 sm:p-12 rounded-3xl relative overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    
+                    <div>
+                        <span class="text-xs font-bold text-brand-plum uppercase tracking-widest">İletişim</span>
+                        <h2 class="text-3xl font-display font-bold mt-1 mb-4">Bir Sorunuz veya Projeniz mi Var?</h2>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+                            İletişim formunu doldurarak mesaj bırakabilirsiniz. Gönderdiğiniz mesajlar doğrudan sistemimde saklanacak ve değerlendirilecektir.
+                        </p>
+
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-2xl bg-brand-plumLight dark:bg-purple-900/40 text-brand-plum flex items-center justify-center">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold">E-Posta</div>
+                                    <a href="mailto:duygu.kaplanlar@example.com" class="text-sm font-bold hover:text-brand-plum">duygu.kaplanlar@example.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 flex items-center justify-center">
+                                    <i class="fas fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-gray-400 uppercase font-bold">Lokasyon</div>
+                                    <div class="text-sm font-bold">Eskişehir, Türkiye</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="flex space-x-3">
+                            <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-200 hover:scale-110 hover:bg-brand-plum hover:text-white transition-all">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-200 hover:scale-110 hover:bg-blue-600 hover:text-white transition-all">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Contact Form -->
+                    <div class="bg-white/80 dark:bg-brand-slateCard p-6 sm:p-8 rounded-3xl border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                        <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Adınız Soyadınız</label>
+                                <input type="text" id="senderName" required placeholder="Ahmet Yılmaz" class="w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 text-xs focus:outline-none focus:ring-2 focus:ring-brand-plum dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">E-Posta Adresiniz</label>
+                                <input type="email" id="senderEmail" required placeholder="ahmet@example.com" class="w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 text-xs focus:outline-none focus:ring-2 focus:ring-brand-plum dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Konu</label>
+                                <input type="text" id="senderSubject" required placeholder="İş Birliği / Soru" class="w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 text-xs focus:outline-none focus:ring-2 focus:ring-brand-plum dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Mesajınız</label>
+                                <textarea id="senderMessage" rows="4" required placeholder="Mesajınızı detaylıca yazabilirsiniz..." class="w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 text-xs focus:outline-none focus:ring-2 focus:ring-brand-plum dark:text-white"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3.5 rounded-2xl bg-brand-plum text-white font-bold text-xs shadow-md hover:bg-purple-700 transition-all active:scale-95">
+                                <i class="far fa-paper-plane mr-2"></i> Mesajı Gönder
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200/50 dark:border-gray-800/50 py-8 text-center text-xs text-gray-500">
+        <p>&copy; 2026 Duygu Kaplanlar. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <!-- ADMIN AUTH MODAL -->
+    <div id="adminAuthModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="glass-card bg-white dark:bg-brand-slateCard w-full max-w-sm rounded-3xl p-6 relative">
+            <button onclick="closeAdminAuth()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700"><i class="fas fa-times"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-brand-plumLight dark:bg-purple-900/40 text-brand-plum flex items-center justify-center mx-auto mb-3 text-xl"><i class="fas fa-lock"></i></div>
+                <h3 class="font-bold text-lg">Admin Girişi</h3>
+                <p class="text-xs text-gray-400">Gelen mesajları değerlendirmek için şifre girin. (Demo Şifre: <span class="text-brand-plum font-bold">admin123</span>)</p>
+            </div>
+            <form onsubmit="verifyAdminPass(event)" class="space-y-4">
+                <input type="password" id="adminPassInput" placeholder="Şifre" required class="w-full px-4 py-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 text-xs focus:outline-none focus:ring-2 focus:ring-brand-plum dark:text-white">
+                <button type="submit" class="w-full py-3 rounded-2xl bg-brand-plum text-white font-bold text-xs">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD MODAL (Gelen Mesajlar) -->
+    <div id="adminDashboardModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/50 backdrop-blur-md">
+        <div class="glass-card bg-white dark:bg-brand-slateCard w-full max-w-3xl rounded-3xl p-6 sm:p-8 relative shadow-2xl max-h-[90vh] flex flex-col">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-2xl bg-brand-plum text-white flex items-center justify-center"><i class="fas fa-inbox"></i></div>
+                    <div>
+                        <h3 class="font-bold text-lg">Gelen Mesaj Yönetimi</h3>
+                        <p class="text-xs text-gray-400">Ziyaretçiler tarafından gönderilen mesajları değerlendirin</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminDashboard()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 hover:text-gray-900 dark:hover:text-white flex items-center justify-center"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Stats Header -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 my-4">
+                <div class="p-3 rounded-2xl bg-gray-100 dark:bg-gray-800/60 text-center">
+                    <div id="statTotalMsg" class="text-lg font-bold text-brand-plum">0</div>
+                    <div class="text-[10px] text-gray-400">Toplam Mesaj</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-gray-100 dark:bg-gray-800/60 text-center">
+                    <div id="statUnreadMsg" class="text-lg font-bold text-red-500">0</div>
+                    <div class="text-[10px] text-gray-400">Okunmamış</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-gray-100 dark:bg-gray-800/60 text-center col-span-2 sm:col-span-1">
+                    <button onclick="clearAllMessages()" class="w-full h-full text-xs font-bold text-red-500 hover:underline"><i class="fas fa-trash-can mr-1"></i> Tümünü Temizle</button>
+                </div>
+            </div>
+
+            <!-- Messages List Scroll Area -->
+            <div id="adminMessageList" class="overflow-y-auto space-y-3 pr-2 flex-1 min-h-[250px]">
+                <!-- Dynamic Content Loaded Here -->
+            </div>
+
+            <div class="pt-4 border-t border-gray-200 dark:border-gray-700 text-right">
+                <button onclick="closeAdminDashboard()" class="px-5 py-2 rounded-xl bg-gray-200 dark:bg-gray-800 text-xs font-bold">Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERAL MODAL (DETAILS) -->
+    <div id="detailsModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+        <div class="glass-card bg-white dark:bg-brand-slateCard w-full max-w-xl rounded-3xl p-6 sm:p-8 relative max-h-[85vh] overflow-y-auto shadow-2xl">
+            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 flex items-center justify-center"><i class="fas fa-times"></i></button>
+            
+            <div id="modalHeaderArea" class="mb-4"></div>
+            <h3 id="modalTitle" class="text-xl font-bold mb-3"></h3>
+            <div id="modalBody" class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed space-y-3 mb-6"></div>
+            
+            <div id="modalInteractiveArea" class="mb-6"></div>
+
+            <button onclick="closeDetailsModal()" class="w-full py-2.5 rounded-2xl bg-brand-plumLight dark:bg-purple-900/40 text-brand-plum dark:text-purple-200 font-bold text-xs">Anladım / Kapat</button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 hidden transition-all duration-300 transform translate-y-10 opacity-0">
+        <div class="glass-card bg-white dark:bg-gray-800 border-l-4 border-l-emerald-500 px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3">
+            <i class="fas fa-circle-check text-emerald-500 text-lg"></i>
+            <div>
+                <div id="toastTitle" class="text-xs font-bold">Başarılı</div>
+                <div id="toastDesc" class="text-[11px] text-gray-500">İşlem tamamlandı.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CODE -->
+    <script>
+        // Sample Project & Blog Data for Rich Modals
+        const projectsData = [
+            {
+                title: "EventFlow.API - Etkinlik Yönetim Sistemi",
+                category: "ASP.NET Core REST API",
+                tags: ["C#", ".NET 8", "MSSQL", "MediatR", "FluentValidation", "JWT"],
+                story: "Etkinlik organizasyonlarında yüksek anlık yükü kaldırabilecek mimari arayışından doğdu. CQRS deseni ile komut ve sorgu süreçleri birbirinden ayrıldı.",
+                architecture: "Clean Architecture (Domain, Application, Infrastructure, WebAPI katmanları). MediatR kütüphanesi ile bağımlılıklar sıfırlandı."
+            },
+            {
+                title: "MicroShop Dockerized Backend",
+                category: "Docker & Microservices",
+                tags: ["Docker", "Docker Compose", "Redis", "PostgreSQL", "ASP.NET Core"],
+                story: "E-ticaret sisteminde veritabanı darboğazlarını engellemek ve Redis caching mekanizmasını konteynerize etmek için tasarlandı.",
+                architecture: "Docker Compose ile 3 farklı bağımsız servis orkestre edilmektedir."
+            }
+        ];
+
+        const blogsData = [
+            {
+                title: "Clean Architecture: Katmanların Ayrımı ve Bağımlılık Yönetimi",
+                date: "14 Ekim 2026",
+                category: "Yazılım Mimarisi",
+                likes: 24,
+                content: "Clean Architecture, yazılım projelerinde kodun iş kurallarını (Domain) dış faktörlerden (Veritabanı, UI, Framework) korumayı hedefler.\n\nProje Büyürken Neden Önemlidir?\n1. Veritabanı Değişiklikleri İş Kurallarını Etkilemez.\n2. Test Edilebilirlik Maksimum Seviyededir.\n3. Bağımlılıklar İçeriye Doğru Yönlendirilir."
+            },
+            {
+                title: "Neden Docker Konteyner Yapısını Tercih Etmeliyiz?",
+                date: "28 Eylül 2026",
+                category: "DevOps & Docker",
+                likes: 18,
+                content: "Docker, uygulamalarımızı ve onların bağımlılıklarını tek bir konteyner haline getirerek her ortamda aynı kararlılıkta çalışmasını sağlar.\n\nVirtual Machine ile Farkı Nedir?\nDocker, ev sahibi işletim sisteminin çekirdeğini paylaştığı için çok daha hafiftir ve saniyeler içinde ayağa kalkar."
+            },
+            {
+                title: "Eskişehir Rotaları ve Bir Yazılımcının Bisiklet Günlüğü",
+                date: "05 Eylül 2026",
+                category: "Bisiklet & Yaşam",
+                likes: 31,
+                content: "Eskişehir'in düz yapısı ve Porsuk Çayı kenarındaki bisiklet yolları, uzun kodlama seanslarının ardından zihni boşaltmak için mükemmel bir imkan sunuyor."
+            }
+        ];
+
+        const quotes = [
+            '"Temiz kod yazmak zaman alır, ama gelecekte kat kat zaman kazandırır."',
+            '"Önce problemi çözün, sonra kodu yazın. - John Johnson"',
+            '"Kod bir şiir gibidir; sade ve anlaşılır olanı makbuldür."',
+            '"Bir sistem ancak en zayıf halkası kadar güçlüdür."'
+        ];
+
+        // Theme Toggle Logic
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if(html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fas fa-sun text-amber-400';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        if(localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.getElementById('themeIcon').className = 'fas fa-sun text-amber-400';
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        // Dynamic Learning Quotes
+        function changeQuote() {
+            const el = document.getElementById('dynamicQuote');
+            const random = quotes[Math.floor(Math.random() * quotes.length)];
+            el.innerText = random;
+        }
+
+        // Contact Form & LocalStorage Message System
+        function submitContactForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('senderName').value;
+            const email = document.getElementById('senderEmail').value;
+            const subject = document.getElementById('senderSubject').value;
+            const message = document.getElementById('senderMessage').value;
+
+            const newMessage = {
+                id: Date.now(),
+                name,
+                email,
+                subject,
+                message,
+                date: new Date().toLocaleString('tr-TR'),
+                read: false
+            };
+
+            const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+            messages.push(newMessage);
+            localStorage.setItem('messages', JSON.stringify(messages));
+
+            showToast('Mesaj İletildi 💌', 'Mesajınız yönetici paneline başarıyla kaydedildi.');
+            document.getElementById('contactForm').reset();
+            updateUnreadBadge();
+        }
+
+        function updateUnreadBadge() {
+            const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+            const unreadCount = messages.filter(m => !m.read).length;
+            const badge = document.getElementById('unreadBadge');
+            if(unreadCount > 0) {
+                badge.innerText = unreadCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Admin Auth & Dashboard Logic
+        function openAdminAuth() {
+            document.getElementById('adminAuthModal').classList.remove('hidden');
+        }
+        function closeAdminAuth() {
+            document.getElementById('adminAuthModal').classList.add('hidden');
+        }
+        function verifyAdminPass(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPassInput').value;
+            if(pass === 'admin123') {
+                closeAdminAuth();
+                document.getElementById('adminPassInput').value = '';
+                openAdminDashboard();
+            } else {
+                showToast('Hatalı Şifre ❌', 'Lütfen doğru admin şifresini girin.');
+            }
+        }
+
+        function openAdminDashboard() {
+            renderAdminMessages();
+            document.getElementById('adminDashboardModal').classList.remove('hidden');
+        }
+        function closeAdminDashboard() {
+            document.getElementById('adminDashboardModal').classList.add('hidden');
+        }
+
+        function renderAdminMessages() {
+            const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+            const container = document.getElementById('adminMessageList');
+            
+            document.getElementById('statTotalMsg').innerText = messages.length;
+            document.getElementById('statUnreadMsg').innerText = messages.filter(m => !m.read).length;
+
+            if(messages.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-400 py-10 text-xs">Henüz gelen bir mesaj bulunmuyor.</div>`;
+                return;
+            }
+
+            container.innerHTML = messages.map(msg => `
+                <div class="p-4 rounded-2xl border ${msg.read ? 'border-gray-200 dark:border-gray-800 bg-white/40 dark:bg-gray-800/30' : 'border-brand-plum bg-brand-plumLight/20 dark:bg-purple-900/20'} flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="font-bold text-xs">${msg.name}</span>
+                                <span class="text-[10px] text-gray-400 block">${msg.email} • ${msg.date}</span>
+                            </div>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded-full ${msg.read ? 'bg-gray-200 text-gray-600' : 'bg-red-500 text-white'}">${msg.read ? 'Okundu' : 'Yeni'}</span>
+                        </div>
+                        <div class="text-xs font-bold text-gray-800 dark:text-gray-200 mb-1">Konu: ${msg.subject}</div>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 bg-white/60 dark:bg-gray-900/50 p-3 rounded-xl">${msg.message}</p>
+                    </div>
+                    <div class="flex items-center justify-end space-x-2 mt-3 pt-2 border-t border-gray-200/50 dark:border-gray-700/50">
+                        <button onclick="toggleReadStatus(${msg.id})" class="text-[11px] font-semibold text-brand-plum hover:underline">${msg.read ? 'Okunmadı Yap' : 'Okundu İşaretle'}</button>
+                        <a href="mailto:${msg.email}?subject=Re: ${msg.subject}" class="text-[11px] font-semibold text-emerald-600 hover:underline"><i class="fas fa-reply mr-1"></i> Yanıtla</a>
+                        <button onclick="deleteMessage(${msg.id})" class="text-[11px] font-semibold text-red-500 hover:underline"><i class="fas fa-trash-can ml-1"></i></button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateUnreadBadge();
+        }
+
+        function toggleReadStatus(id) {
+            let messages = JSON.parse(localStorage.getItem('messages') || '[]');
+            messages = messages.map(m => m.id === id ? {...m, read: !m.read} : m);
+            localStorage.setItem('messages', JSON.stringify(messages));
+            renderAdminMessages();
+        }
+
+        function deleteMessage(id) {
+            let messages = JSON.parse(localStorage.getItem('messages') || '[]');
+            messages = messages.filter(m => m.id !== id);
+            localStorage.setItem('messages', JSON.stringify(messages));
+            renderAdminMessages();
+            showToast('Silindi', 'Mesaj başarıyla silindi.');
+        }
+
+        function clearAllMessages() {
+            if(confirm('Tüm mesajları silmek istediğinize emin misiniz?')) {
+                localStorage.removeItem('messages');
+                renderAdminMessages();
+            }
+        }
+
+        // Project Filter
+        function filterProjects(category, btn) {
+            document.querySelectorAll('.proj-filter-btn').forEach(b => b.className = 'proj-filter-btn px-4 py-2 rounded-2xl text-xs font-bold glass-card hover:bg-brand-plumLight/50 dark:hover:bg-gray-800 transition-all');
+            btn.className = 'proj-filter-btn px-4 py-2 rounded-2xl text-xs font-bold bg-brand-plum text-white shadow-sm transition-all';
+
+            document.querySelectorAll('.proj-card').forEach(card => {
+                if(category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modals Logic
+        function openProjectDetails(index) {
+            const proj = projectsData[index];
+            document.getElementById('modalHeaderArea').innerHTML = `<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300">${proj.category}</span>`;
+            document.getElementById('modalTitle').innerText = proj.title;
+            document.getElementById('modalBody').innerHTML = `
+                <p><strong>Hikayesi & Çözülen Problem:</strong> ${proj.story}</p>
+                <p><strong>Mimari Özeti:</strong> ${proj.architecture}</p>
+            `;
+            document.getElementById('modalInteractiveArea').innerHTML = `
+                <div class="text-xs font-bold text-gray-400 mb-2">Kullanılan Teknolojiler</div>
+                <div class="flex flex-wrap gap-1.5">${proj.tags.map(t => `<span class="px-2.5 py-1 rounded-md text-[10px] bg-gray-100 dark:bg-gray-800 font-semibold">${t}</span>`).join('')}</div>
+            `;
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function openBlogDetails(index) {
+            const blog = blogsData[index];
+            document.getElementById('modalHeaderArea').innerHTML = `<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-pink-100 text-pink-700 dark:bg-pink-900/50 dark:text-pink-300">${blog.category}</span>`;
+            document.getElementById('modalTitle').innerText = blog.title;
+            document.getElementById('modalBody').innerHTML = `<p class="whitespace-pre-line">${blog.content}</p>`;
+            document.getElementById('modalInteractiveArea').innerHTML = `
+                <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button onclick="likeBlog(${index})" class="px-4 py-2 rounded-xl bg-pink-100 dark:bg-pink-900/40 text-pink-600 font-bold text-xs"><i class="fas fa-heart mr-1"></i> Beğen (<span id="likeCount">${blog.likes}</span>)</button>
+                    <span class="text-xs text-gray-400">${blog.date}</span>
+                </div>
+            `;
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function likeBlog(index) {
+            blogsData[index].likes++;
+            document.getElementById('likeCount').innerText = blogsData[index].likes;
+            showToast('Teşekkürler! ❤️', 'Makaleyi beğendiniz.');
+        }
+
+        function openTimelineModal(title, subtitle, date, details) {
+            document.getElementById('modalHeaderArea').innerHTML = `<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">${date}</span>`;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerHTML = `<p class="font-bold text-xs text-brand-plum mb-2">${subtitle}</p><p>${details}</p>`;
+            document.getElementById('modalInteractiveArea').innerHTML = '';
+            document.getElementById('detailsModal').classList.remove('hidden');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.add('hidden');
+        }
+
+        // Toast Helper
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastDesc').innerText = desc;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        function downloadCV() {
+            showToast('CV İndiriliyor 📄', 'Duygu Kaplanlar - Özgeçmiş hazırlanıyor.');
+        }
+
+        // Initial setup
+        window.onload = function() {
+            updateUnreadBadge();
+        };
+    </script>
+</body>
+</html>
